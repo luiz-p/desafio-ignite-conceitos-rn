@@ -14,15 +14,27 @@ export function Home() {
   const [tasks, setTasks] = useState<Task[]>([]);
 
   function handleAddTask(newTaskTitle: string) {
-    //TODO - add new task if it's not empty
+    if(newTaskTitle) {
+      setTasks(oladState => [...oladState, {
+        id: new Date().getTime(),
+        title: newTaskTitle,
+        done: false
+      }])
+    }
   }
 
   function handleMarkTaskAsDone(id: number) {
-    //TODO - mark task as done if exists
+    const taskDone = tasks.map(task => task.id === id ? {
+      ...task,
+      done: !task.done
+    } : task);
+    console.log(taskDone)
+
+    setTasks(taskDone);
   }
 
   function handleRemoveTask(id: number) {
-    //TODO - remove task from state
+    setTasks(tasks.filter((task) => task.id !== id))
   }
 
   return (
